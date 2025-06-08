@@ -1,0 +1,40 @@
+# AutoAttack配置文件 - 文本识别模型的对抗攻击配置
+
+# 标准攻击配置
+autoattack_configs:
+  # L无穷范数配置
+  linf_standard:
+    norm: "Linf"
+    epsilon: 0.03137  # 8/255
+    version: "standard"
+    attacks: ["apgd-ce", "apgd-dlr", "fab", "square"]
+    
+  linf_light:
+    norm: "Linf"
+    epsilon: 0.03137  # 8/255
+    version: "custom"
+    attacks: ["apgd-ce", "fab"]
+    n_restarts: 1
+    
+  # L2范数配置  
+  l2_standard:
+    norm: "L2"
+    epsilon: 0.5
+    version: "standard"
+    attacks: ["apgd-ce", "apgd-dlr", "fab", "square"]
+
+# 数据集特定设置
+dataset_settings:
+  CUTE80:
+    max_length: 25
+    image_size: [32, 128]
+    
+  IIIT5K:
+    max_length: 23
+    image_size: [32, 128]
+
+# 评估设置
+evaluation:
+  batch_size: 32
+  n_examples: 1000  # 最大评估样本数
+  seed: 42

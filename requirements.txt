@@ -36,3 +36,6 @@ pandas
 lmdb
 matplotlib
 jupyter
+seaborn
+# AutoAttack dependencies (install separately)
+# git+https://github.com/fra31/auto-attack
