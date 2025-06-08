@@ -1,0 +1,67 @@
+# DeepFool攻击配置文件
+# 适用于PARSeq文本识别模型
+
+# 模型配置
+models:
+  parseq_tiny:
+    description: "微型模型 - 最快速度，适合快速测试"
+    params: "~1M"
+    accuracy: "中等"
+    
+  parseq_patch16_224:
+    description: "标准模型 - 平衡性能和速度"
+    params: "~23M"
+    accuracy: "高"
+    
+  parseq:
+    description: "完整模型 - 最佳性能"
+    params: "~23M"
+    accuracy: "最高"
+    
+  parseq_base:
+    description: "基础模型 - 标准配置"
+    params: "~23M"
+    accuracy: "高"
+
+# DeepFool攻击参数
+attack_params:
+  max_iter: 50              # 最大迭代次数
+  overshoot: 0.02           # 超调参数，增加扰动幅度
+  simple_mode: true         # 是否使用简化版DeepFool
+  batch_size: 8             # 批处理大小
+
+# 数据集配置
+dataset:
+  name: "CUTE80"
+  path: "../../../CUTE80"
+  scopes:
+    sample: 5               # 小样本测试
+    medium: 15              # 中等规模测试
+    large: 30               # 大规模测试
+    full: 80                # 完整数据集
+
+# 输出配置
+output:
+  save_results: true        # 是否保存结果
+  save_images: true         # 是否保存对抗样本图像
+  save_stats: true          # 是否保存统计信息
+  results_dir: "./results"  # 结果保存目录
+  
+# 可视化配置
+visualization:
+  show_plots: true          # 是否显示图表
+  save_plots: true          # 是否保存图表
+  plot_dpi: 300             # 图像分辨率
+  max_display_images: 9     # 最大显示图像数量
+
+# 设备配置
+device:
+  auto_select: true         # 自动选择设备
+  preferred: "cuda"         # 首选设备
+  fallback: "cpu"           # 备用设备
+
+# 日志配置
+logging:
+  level: "INFO"             # 日志级别
+  save_log: true            # 是否保存日志
+  log_file: "deepfool.log"  # 日志文件名
