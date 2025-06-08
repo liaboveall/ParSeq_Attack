@@ -16,7 +16,7 @@
 
 #
 
-### 🔥 PyTorch 安装
+### PyTorch 安装
 推荐单独安装`Pytorch`，然后根据你是否有GPU来选择安装命令(`CUDA`和`cudnn`的安装自行解决吧)
 
 #### venv 环境
@@ -95,15 +95,58 @@ python read.py pretrained=parseq --images ./CUTE80/image001.jpg --device cpu
 
 ---
 
-## 攻击测试
+#
 
-- 查看`adversarial_attacks`目录
+# 攻击测试
 
-- 使用我的notebook demo
+## 📁 项目结构
+所有攻击相关代码位于 `adversarial_attacks` 目录下
 
-- 查看adversarial_attacks目录，里面每个目录下都有对应的攻击代码
-  - advgan.py就是Adcgan的实现
-  - deepfool.py就是DeepFool的实现，测试会有点慢，因为处理图像的方式还是串行的，其实和没用gpu是一样的
-  - interactive_attack.py是他上课讲过的诸多算法的可选择的攻击实现（提示：不要选择C&W攻击）
-  - superdeepfool_cuda.py是SuperDeepFool的实现,并进行了CUDA加速，superdeepfool.py没有向量化，会非常非常慢
+## 🎯 快速开始
+
+### 📋 Demo 演示
+```bash
+# 运行 Jupyter Notebook 演示
+jupyter notebook adversarial_attacks/demo.ipynb
+```
+
+### 🛠️ 攻击脚本使用
+
+#### 1️⃣ **AdvGAN 攻击**
+```bash
+# 位置：adversarial_attacks/advgan/
+python adversarial_attacks/advgan/advgan.py
+```
+- **算法**：AdvGAN 生成对抗攻击
+- **特点**：基于生成对抗网络的攻击方法
+
+#### 2️⃣ **DeepFool 攻击**
+```bash
+# 位置：adversarial_attacks/deepfool/
+python adversarial_attacks/deepfool/deepfool.py
+```
+- **算法**：DeepFool 最小扰动攻击
+- **注意**：处理速度较慢（串行处理，未充分利用GPU）
+
+#### 3️⃣ **交互式多攻击选择**
+```bash
+# 位置：adversarial_attacks/interactive/
+python adversarial_attacks/interactive/interactive_attack.py
+```
+- **算法**：多种攻击算法可选择
+- **包含**：FGSM、PGD、等多种经典攻击
+
+
+#### 4️⃣ **SuperDeepFool 攻击**
+```bash
+# CUDA 加速版本（推荐）
+python adversarial_attacks/superdeepfool/superdeepfool_cuda.py
+
+# 普通版本（非常慢，不推荐）
+python adversarial_attacks/superdeepfool/superdeepfool.py
+```
+- **算法**：SuperDeepFool 增强版攻击
+- **特点**：CUDA 加速版本性能更优
+- **注意**：普通版本未向量化，速度极慢
+
 
