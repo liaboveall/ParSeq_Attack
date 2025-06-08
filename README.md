@@ -112,6 +112,17 @@ jupyter notebook adversarial_attacks/demo.ipynb
 
 ### 🛠️ 攻击脚本使用
 
+**🔥 推荐：AutoAttack（业界最强评估工具）**
+- 集成多种先进攻击算法
+- 专业的鲁棒性评估标准
+- 详细的攻击效果分析
+
+**📈 其他经典攻击算法**
+- AdvGAN：基于生成对抗网络
+- DeepFool：最小扰动攻击  
+- 多攻击集成：FGSM、PGD等
+- 增强版DeepFool：CUDA加速
+
 #### 1️⃣ **AdvGAN 攻击**
 ```bash
 # 位置：adversarial_attacks/advgan/
@@ -148,5 +159,24 @@ python adversarial_attacks/advanced_deepfool/advanced_deepfool.py
 - **算法**：advanced_deepfool 增强版攻击
 - **特点**：CUDA 加速版本性能更优
 - **注意**：普通版本未向量化，速度极慢
+
+#### 5️⃣ **AutoAttack 攻击**
+```bash
+# 位置：adversarial_attacks/autoattack/
+python adversarial_attacks/autoattack/autoattack_txt.py
+```
+- **算法**：AutoAttack 集成攻击框架
+- **特点**：业界最强的对抗攻击评估工具
+- **包含**：APGD-CE、APGD-DLR、FAB、Square等多种攻击
+- **支持**：L∞ 和 L2 范数约束
+- **优势**：专门适配文本识别模型，提供鲁棒性评估
+
+
+**依赖安装：**
+```bash
+# 需要额外安装AutoAttack库
+pip install git+https://github.com/fra31/auto-attack
+```
+
 
 

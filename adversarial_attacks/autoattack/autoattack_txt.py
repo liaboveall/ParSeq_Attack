@@ -365,8 +365,7 @@ def main():
                     setattr(self, key, value)
         
         args = Config(**config)
-        
-        # 加载模型和数据
+          # 加载模型和数据
         model, _ = load_model_and_data(
             args.model_name, args.checkpoint, args.data_root, args.dataset
         )
@@ -374,9 +373,10 @@ def main():
         model = model.to(device)
         
         # 为AutoAttack创建模型包装器
-        print("🔧 创建模型包装器...")1
+        print("🔧 创建模型包装器...")
         model_wrapper = TextRecognitionModelWrapper(model, device)
-          # 准备测试数据 - 直接从图像文件夹加载
+
+        # 准备测试数据 - 直接从图像文件夹加载
         import glob
         from PIL import Image
         from torchvision import transforms
