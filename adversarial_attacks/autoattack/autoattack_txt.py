@@ -257,6 +257,24 @@ def get_user_input():
             device = 'cpu'
     
     print(f"✅ 使用设备: {device}")
+      # 自动检测数据根目录
+    current_script_dir = Path(__file__).parent
+    possible_data_roots = [
+        '.',  # 当前目录
+        '../..',  # 上两级目录（项目根目录）
+        current_script_dir / '../..',  # 相对于脚本的项目根目录
+        Path(__file__).parent.parent.parent  # 绝对路径到项目根目录
+    ]
+    
+    data_root = '.'
+    for root in possible_data_roots:
+        test_path = Path(root) / dataset_name
+        if test_path.exists():
+            data_root = str(root)
+            print(f"✅ 找到数据集路径: {test_path.absolute()}")
+            break
+    else:
+        print(f"⚠️ 警告: 无法自动定位{dataset_name}数据集，使用默认路径")
     
     return {
         'model_name': model_name,
@@ -264,7 +282,7 @@ def get_user_input():
         'dataset': dataset_name,
         'n_examples': n_examples,
         'device': device,
-        'data_root': '.',
+        'data_root': data_root,
         'save_dir': './results/autoattack',
         'batch_size': 4,
         **attack_config
@@ -356,21 +374,31 @@ def main():
         model = model.to(device)
         
         # 为AutoAttack创建模型包装器
-        print("🔧 创建模型包装器...")
+        print("🔧 创建模型包装器...")1
         model_wrapper = TextRecognitionModelWrapper(model, device)
-        
-        # 准备测试数据 - 直接从图像文件夹加载
+          # 准备测试数据 - 直接从图像文件夹加载
         import glob
         from PIL import Image
         from torchvision import transforms
         
         dataset_path = os.path.join(args.data_root, args.dataset)
+        print(f"🔍 正在搜索数据集路径: {dataset_path}")
+        print(f"📁 绝对路径: {os.path.abspath(dataset_path)}")
+        
         image_files = glob.glob(os.path.join(dataset_path, '*.jpg')) + \
                       glob.glob(os.path.join(dataset_path, '*.JPG')) + \
                       glob.glob(os.path.join(dataset_path, '*.png'))
-        
+
         if not image_files:
             print(f"❌ 在{dataset_path}中未找到图像文件！")
+            print(f"🔍 调试信息:")
+            print(f"   - 当前工作目录: {os.getcwd()}")
+            print(f"   - 脚本位置: {os.path.dirname(os.path.abspath(__file__))}")
+            print(f"   - args.data_root: {args.data_root}")
+            print(f"   - args.dataset: {args.dataset}")
+            print(f"   - 检查路径是否存在: {os.path.exists(dataset_path)}")
+            if os.path.exists(dataset_path):
+                print(f"   - 目录内容: {os.listdir(dataset_path)}")
             return
         
         print(f"📸 加载{len(image_files)}张图像中的{args.n_examples}张...")
