@@ -128,24 +128,24 @@ python adversarial_attacks/deepfool/deepfool.py
 - **算法**：DeepFool 最小扰动攻击
 - **注意**：处理速度较慢（串行处理，未充分利用GPU）
 
-#### 3️⃣ **交互式多攻击选择**
+#### 3️⃣ **多攻击选择**
 ```bash
-# 位置：adversarial_attacks/interactive/
-python adversarial_attacks/interactive/interactive_attack.py
+# 位置：adversarial_attacks/multi/
+python adversarial_attacks/multi/multi_attack.py
 ```
 - **算法**：多种攻击算法可选择
 - **包含**：FGSM、PGD、等多种经典攻击
 
 
-#### 4️⃣ **SuperDeepFool 攻击**
+#### 4️⃣ **advanced_deepfool 攻击**
 ```bash
 # CUDA 加速版本（推荐）
-python adversarial_attacks/superdeepfool/superdeepfool_cuda.py
+python adversarial_attacks/advanced_deepfool/advanced_deepfool_cuda.py
 
 # 普通版本（非常慢，不推荐）
-python adversarial_attacks/superdeepfool/superdeepfool.py
+python adversarial_attacks/advanced_deepfool/advanced_deepfool.py
 ```
-- **算法**：SuperDeepFool 增强版攻击
+- **算法**：advanced_deepfool 增强版攻击
 - **特点**：CUDA 加速版本性能更优
 - **注意**：普通版本未向量化，速度极慢
 
